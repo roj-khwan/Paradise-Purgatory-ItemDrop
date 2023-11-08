@@ -1,5 +1,5 @@
 :root {
-    --tile-size: calc(85vh / 12);
+    --tile-size: calc(70vh / 12);
 }
 html, body {
     background: whitesmoke;
@@ -70,6 +70,6 @@ main {
 }
 @media (max-aspect-ratio : 1/2) {
     :root {
-        --tile-size: calc(75vw / 6);
+        --tile-size: calc(60vw / 6);
     }
 }
