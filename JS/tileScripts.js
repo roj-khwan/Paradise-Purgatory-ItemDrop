@@ -42,22 +42,41 @@ function TileClick(caller) {
 
 function NewGenerateGem() {
 
-    let availableTiles = Array.from(tiles).map((x, i) => [x, i % width, Math.floor(x / width), x.getAttribute('data-object')])
+    let availableTiles = Array.from(tiles).map((x, i) => [x, i % width, Math.floor(i / width), x.getAttribute('data-object')])
 
-    let gemCount = availableTiles.filter(x => x[3] == "items").length
+    let gemTiles = availableTiles.filter(x => x[3] == "items")
 
-    console.log(gemCount)
+    let gemCount = gemTiles.length
 
     for (let i = gemCount; i < 5; i++) {
 
         let placeableTiles = availableTiles.filter((x) => {return x[0].getAttribute("data-object") == "empty"})
 
+        let probabilyTiles = placeableTiles.sort((a, b) => (a[2] * width + a[1]) - (b[2] * width + b[1])).map((x) => {
+            let prob = 1
+            gemTiles.every(gems => {
+                let magnitude = Math.sqrt(Math.pow(gems[1] - x[1], 2) + Math.pow(gems[2] - x[2], 2)) / Math.sqrt(50)
+
+                prob *= magnitude
+            });
+
+            return [x[0], x[1], x[2], prob]
+        })
+
         if (placeableTiles.length <= 0) break
 
-        placeableTiles.sort(x => Math.random() - 0.5)
+        probabilyTiles = probabilyTiles.sort(x => Math.random() - 0.5)
 
-        placeableTiles[0][0].setAttribute("data-object", "items")
-        placeableTiles[0][0].innerHTML = '<i class="fa-regular fa-gem"></i>'
+        let rnd = Math.random() * Math.max.apply(null, probabilyTiles.map(x => x[3]))
+
+        rightTile = probabilyTiles.find(x => x[3] >= rnd)[0]
+        console.log(rnd)
+        console.table(probabilyTiles)
+
+        rightTile.setAttribute("data-object", "items")
+        rightTile.innerHTML = '<i class="fa-regular fa-gem"></i>'
+
+        gemTiles.push(placeableTiles.find(x => x[0] === rightTile))
     }
 
 }  
