@@ -14,6 +14,6 @@ for (const tile of tiles) {
 
     let magnitude = Math.sqrt(Math.pow(x + 1, 2) + Math.pow(y + 1, 2)) / Math.sqrt(Math.pow(6, 2) + Math.pow(12, 2))
 
-    let color = overallDistance.map((x, i) => {return (x * magnitude * 1.2 + UpperColor[i]) * y / 7})
+    let color = overallDistance.map((x, i) => {return (x * magnitude * 1.2 + UpperColor[i]) * y / (height * 5 / 12)})
     tile.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`
 }

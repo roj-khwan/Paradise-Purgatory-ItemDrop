@@ -1,5 +1,5 @@
 :root {
-    --tile-size: calc(70vh / 12);
+    --tile-size: 80px;
 }
 html, body {
     background: whitesmoke;
@@ -18,7 +18,7 @@ tile {
     aspect-ratio: 1;
     border: calc(var(--tile-size) / 30) #45474B solid;
     border-radius: 10%;
-    box-shadow: 2px 2px 1px 1px rgba(63, 63, 63, 0.475);
+    box-shadow: 3px 3px 2px 2px rgba(63, 63, 63, 0.475);
     transform: rotateZ(180deg);
     display: flex;
     place-content: center;
@@ -35,7 +35,12 @@ tile i.fa-ban{
     color: red;
 }
 tile i.fa-gem {
-    color: rgb(202, 95, 255);
+    color: rgb(185, 44, 255);
+}
+@media only screen and (max-width: 544px) {
+    :root {
+        --tile-size: calc((100vw - 100px) / 6);
+    }
 }
 main {
     width: fit-content;
@@ -45,6 +50,8 @@ main {
     justify-content: center;
 
     transform: rotateZ(180deg);
+
+    margin: 10px;
 
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;
@@ -67,9 +74,4 @@ main {
     position: absolute;
     bottom: 0;
     right: 0;
-}
-@media (max-aspect-ratio : 1/2) {
-    :root {
-        --tile-size: calc(60vw / 6);
-    }
 }
